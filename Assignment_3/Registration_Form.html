@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+</head>
+
+<body style="font-family:Arial; background:#f2f2f2; padding:40px;">
+
+<h2>Registration Form</h2>
+
+<form id="regForm" style="background:white; padding:20px; width:350px; border-radius:10px;">
+
+<!-- NAME -->
+<label>Name</label><br>
+<input id="name" type="text" style="width:100%; padding:8px;">
+<div id="nameError" style="color:red; font-size:12px;"></div>
+<br>
+
+<!-- EMAIL -->
+<label>Email</label><br>
+<input id="email" type="text" style="width:100%; padding:8px;">
+<div id="emailError" style="color:red; font-size:12px;"></div>
+<br>
+
+<!-- PHONE -->
+<label>Phone</label><br>
+<input id="phone" type="text" style="width:100%; padding:8px;">
+<div id="phoneError" style="color:red; font-size:12px;"></div>
+<br>
+
+<!-- PASSWORD -->
+<label>Password</label><br>
+
+<div style="display:flex;">
+<input id="password" type="password" style="width:100%; padding:8px;">
+<button type="button" onclick="togglePassword()" style="margin-left:5px;">Show</button>
+</div>
+
+<div id="strength" style="font-size:12px;"></div>
+<br>
+
+<button type="submit" style="padding:10px; width:100%;">Register</button>
+
+</form>
+
+<script>
+
+// INPUT ELEMENTS
+let nameInput = document.getElementById("name");
+let emailInput = document.getElementById("email");
+let phoneInput = document.getElementById("phone");
+let passwordInput = document.getElementById("password");
+
+// ERROR ELEMENTS
+let nameError = document.getElementById("nameError");
+let emailError = document.getElementById("emailError");
+let phoneError = document.getElementById("phoneError");
+let strength = document.getElementById("strength");
+
+
+// NAME VALIDATION
+nameInput.addEventListener("input", function(){
+
+    if(nameInput.value.length < 3){
+        nameError.innerText = "Name must be at least 3 characters";
+    } else{
+        nameError.innerText = "";
+    }
+
+});
+
+
+// EMAIL VALIDATION
+emailInput.addEventListener("input", function(){
+
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if(!pattern.test(emailInput.value)){
+        emailError.innerText = "Invalid email format";
+    } else{
+        emailError.innerText = "";
+    }
+
+});
+
+
+// PHONE VALIDATION
+phoneInput.addEventListener("input", function(){
+
+    if(phoneInput.value.length != 10){
+        phoneError.innerText = "Phone must be 10 digits";
+    } else{
+        phoneError.innerText = "";
+    }
+
+});
+
+
+// PASSWORD STRENGTH
+passwordInput.addEventListener("input", function(){
+
+    let pass = passwordInput.value;
+
+    if(pass.length < 6){
+        strength.innerText = "Weak Password";
+        strength.style.color = "red";
+    }
+    else if(pass.length < 10){
+        strength.innerText = "Medium Password";
+        strength.style.color = "orange";
+    }
+    else{
+        strength.innerText = "Strong Password";
+        strength.style.color = "green";
+    }
+
+});
+
+
+// SHOW / HIDE PASSWORD
+function togglePassword(){
+
+    if(passwordInput.type === "password"){
+        passwordInput.type = "text";
+    } else{
+        passwordInput.type = "password";
+    }
+
+}
+
+
+// FORM SUBMIT
+document.getElementById("regForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let user = {
+        name: nameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        password: passwordInput.value
+    };
+
+    let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+    submissions.push(user);
+
+    localStorage.setItem("submissions", JSON.stringify(submissions));
+
+    alert("Registration Saved!");
+
+    this.reset();
+
+    strength.innerText="";
+
+});
+
+</script>
+
+</body>
+</html>
