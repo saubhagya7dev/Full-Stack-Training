@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sticky Notes</title>
+</head>
+
+<body style="font-family:Arial; padding:40px; background:#f4f4f4;">
+
+<h1>Sticky Notes</h1>
+
+<input id="noteInput" placeholder="Write a note..."
+style="padding:10px; width:250px;">
+
+<button onclick="addNote()" style="padding:10px;">
+Add Note
+</button>
+
+<div id="notes" style="margin-top:20px;"></div>
+
+<script>
+
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+function displayNotes(){
+
+    let container = document.getElementById("notes");
+    container.innerHTML = "";
+
+    notes.forEach((note,index)=>{
+
+        let div = document.createElement("div");
+
+        div.style.background="yellow";
+        div.style.padding="10px";
+        div.style.margin="10px";
+        div.style.width="200px";
+
+        div.innerHTML = `
+        ${note}
+        <br><br>
+        <button onclick="deleteNote(${index})">Delete</button>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+function addNote(){
+
+    let input = document.getElementById("noteInput");
+
+    if(input.value === "") return;
+
+    notes.push(input.value);
+
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    input.value="";
+
+    displayNotes();
+
+}
+
+function deleteNote(index){
+
+    notes.splice(index,1);
+
+    localStorage.setItem("notes", JSON.stringify(notes));
+
+    displayNotes();
+
+}
+
+displayNotes();
+
+</script>
+
+</body>
+</html>
