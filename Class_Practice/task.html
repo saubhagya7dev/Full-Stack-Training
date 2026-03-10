@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);">
+<h1>Full Stack Practice</h1>
+<ul>
+    <li class="item">Learn HTML</li>
+    <li class="item">Learn CSS</li>
+    <li class="item">Learn JavaScript</li>
+</ul>
+<script>
+let items = document.querySelectorAll(".item");
+items.forEach(function(item){
+    item.addEventListener("click", function(){
+        item.style.textDecoration = "line-through";
+    });
+});
+</script>
+</body>
+</html>
+
+
+
+
+

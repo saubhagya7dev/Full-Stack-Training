@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+<h1>Full Stack Practice</h1>
+<button class="btn">B1</button>
+<button class="btn">B2</button>
+<button class="btn">B3</button>
+<script>
+let buttons = document.querySelectorAll(".btn");
+buttons[0].style.backgroundColor = "red";
+buttons[1].style.backgroundColor = "green";
+buttons[2].style.backgroundColor = "blue";
+buttons.forEach(function(button){
+    button.addEventListener("click", function(){
+        document.body.style.backgroundColor = button.style.backgroundColor;
+    });
+});
+</script>
+</body>
+</html>
